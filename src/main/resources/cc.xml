@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<cities>
+    <city>
+        <latitude>55.75222</latitude>
+        <longitude>37.61556</longitude>
+        <name>Москва</name>
+    </city>
+    <city>
+        <latitude>53.20007</latitude>
+        <longitude>50.15</longitude>
+        <name>Самара</name>
+    </city>
+    <city>
+        <latitude>55.78333</latitude>
+        <longitude>49.15</longitude>
+        <name>Казань</name>
+    </city>
+    <city>
+        <latitude>30.5</latitude>
+        <longitude>0.11667</longitude>
+        <name>Лондон</name>
+    </city>
+</cities>

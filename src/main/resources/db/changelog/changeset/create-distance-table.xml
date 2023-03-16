@@ -1,0 +1,45 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+
+    <changeSet id="create-table-distance-1" author="Bahtiyar T">
+        <preConditions>
+            <not>
+                <tableExists tableName="distance"/>
+            </not>
+        </preConditions>
+        <createTable tableName="distance">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_distance"/>
+            </column>
+            <column name="from_city" type="BIGINT"/>
+            <column name="to_city" type="BIGINT"/>
+            <column name="distance" type="NUMERIC(10,2)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-table-distance-2" author="Bahtiyar T">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="distance"/>
+                <columnExists tableName="distance" columnName="from_city"/>
+                <columnExists tableName="distance" columnName="to_city"/>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="distance"
+                                 baseColumnNames="from_city"
+                                 constraintName="FK_from_city"
+                                 referencedTableName="city"
+                                 referencedColumnNames="id" />
+
+        <addForeignKeyConstraint baseTableName="distance"
+                                 baseColumnNames="to_city"
+                                 constraintName="FK_to_city"
+                                 referencedTableName="city"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
