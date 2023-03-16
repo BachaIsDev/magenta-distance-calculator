@@ -1,5 +1,6 @@
 # magenta-distance-calculator
-distance-calculator rest api
+(distance-calculator rest api)
+
 How to start the application?
 - clone project on your PC and open it in IntelliJ IDEA
 - connect a database MySQL and create a database with name 'distance_calculator'
