@@ -6,8 +6,6 @@ import com.project.distancecalculator.repository.DistanceRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,23 +21,18 @@ public class DistanceService {
         this.distanceRepository = distanceRepository;
     }
 
-    public Distance getDistanceByCities(City from, City to) {
-        return distanceRepository.getDistanceByFromCityAndToCity(from, to);
-    }
 
     public Distance getDistanceByCityNames(String fromName, String toName){
-        if(distanceRepository.getDistanceByFromCity_NameAndToCity_Name(fromName, toName) == null){
-            if(distanceRepository.getDistanceByFromCity_NameAndToCity_Name(toName, fromName) == null){
-                logger.log(Level.WARNING, "No such distance in database");
-                return new Distance();
+        try{
+            if(!(distanceRepository.getDistanceByFromCity_NameAndToCity_Name(fromName, toName) == null)){
+                return distanceRepository.getDistanceByFromCity_NameAndToCity_Name(fromName, toName);
+            }else if(!(distanceRepository.getDistanceByFromCity_NameAndToCity_Name(toName, fromName) == null)){
+                return distanceRepository.getDistanceByFromCity_NameAndToCity_Name(toName, fromName);
             }
-            return distanceRepository.getDistanceByFromCity_NameAndToCity_Name(toName, fromName);
+        }catch (NoResultException e){
+            logger.log(Level.WARNING, "No such distance in database");
         }
-        return distanceRepository.getDistanceByFromCity_NameAndToCity_Name(fromName, toName);
-    }
-
-    public List<Distance> getAllDistances(){
-        return distanceRepository.findAll();
+        return new Distance();
     }
 
     public void saveDistance(Distance distance){

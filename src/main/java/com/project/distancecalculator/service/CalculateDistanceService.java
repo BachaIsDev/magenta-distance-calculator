@@ -61,9 +61,4 @@ public class CalculateDistanceService {
         return result;
     }
 
-    private Distance getDistance(City from, City to) {
-        City cityFrom = cityService.getByName(from.getName());
-        City cityTo = cityService.getByName(to.getName());
-        return distanceService.getDistanceByCities(cityFrom, cityTo);
-    }
 }

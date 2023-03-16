@@ -5,11 +5,9 @@ import com.project.distancecalculator.repository.CityRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 @Service
 public class CityService {
-    private final Logger logger = Logger.getLogger("CityService");
     private final CityRepository cityRepository;
 
     public CityService(CityRepository cityRepository) {

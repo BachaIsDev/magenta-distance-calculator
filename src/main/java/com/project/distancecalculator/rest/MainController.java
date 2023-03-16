@@ -1,13 +1,13 @@
 package com.project.distancecalculator.rest;
 
 import com.project.distancecalculator.model.CalculateResult;
+import com.project.distancecalculator.service.DistanceService;
 import com.project.distancecalculator.model.Cities;
 import com.project.distancecalculator.model.CitiesForCalculate;
 import com.project.distancecalculator.model.entity.City;
 import com.project.distancecalculator.model.entity.Distance;
 import com.project.distancecalculator.service.CalculateDistanceService;
 import com.project.distancecalculator.service.CityService;
-import com.project.distancecalculator.service.DistanceService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
-import java.nio.file.Files;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +33,6 @@ public class MainController {
         this.cityService = cityService;
         this.calculateDistanceService = calculateDistanceService;
         this.distanceService = distanceService;
-    }
-
-    //todelete
-    @GetMapping("/d")
-    public List<Distance> getDistances(){
-        return distanceService.getAllDistances();
     }
 
     @GetMapping("/cities")
@@ -61,7 +54,7 @@ public class MainController {
     public ResponseEntity<?> createCities(@RequestParam("file") MultipartFile multiPart) {
         List<City> cityList = null;
         try{
-            //unmarshall xml to List<City> cityList and save in database
+            //unmarshall xml to List<City> cityList and save in the database
             JAXBContext jaxbContext = JAXBContext.newInstance(Cities.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             Cities citiesWrapper = (Cities) unmarshaller.unmarshal(multiPart.getInputStream());
@@ -69,7 +62,7 @@ public class MainController {
             cityList.forEach(System.out::println);
             citiesWrapper.getCities().forEach(cityService::save);
 
-            // create distances between cities and save in database
+            // create distances between cities and save in the database
             for(int i = 0; i < cityList.size(); i++){
                 for (int j = i; j < cityList.size(); j++) {
                     String fromName = cityList.get(i).getName();
@@ -98,10 +91,12 @@ public class MainController {
         Map<String, Object> map = new LinkedHashMap<>();
         CalculateResult error = new CalculateResult();
         if (citiesForCalculate.way == null) {
+            error.setError("Wrong input data!");
             map.put("status", 0);
             map.put("error", error);
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
+        // get a distance data by the way of calculation
         switch (citiesForCalculate.way) {
             case CROWFLIGHT: {
                 List<CalculateResult> calculateResultList = calculateDistanceService.calculateDistanceByCrowFlight(citiesForCalculate.from, citiesForCalculate.to);

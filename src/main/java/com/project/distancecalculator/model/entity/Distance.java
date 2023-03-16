@@ -1,6 +1,5 @@
 package com.project.distancecalculator.model.entity;
 
-import com.project.distancecalculator.model.entity.City;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

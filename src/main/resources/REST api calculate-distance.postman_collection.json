@@ -1,0 +1,95 @@
+{
+	"info": {
+		"_postman_id": "52236bb8-f9ee-4882-bf4c-34e5b967ae06",
+		"name": "REST api calculate-distance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24021343"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8080/api/upload",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/bacha/SpringbootProjects/new-distance-calculator/src/main/resources/test_data.xml"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					]
+				},
+				"description": "save cities and distances from xml file"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/calculate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"to\": \r\n    [\r\n        {\r\n            \"name\": \"Казань\"\r\n        }\r\n    ],\r\n    \"from\":\r\n    [\r\n        {\r\n            \"name\": \"Москва\"\r\n        }\r\n    ],\r\n    \"way\": \"MATRIX\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/calculate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"calculate"
+					]
+				},
+				"description": "calculate distance between cities\r\ninput JSON-format"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/api/cities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/cities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"cities"
+					]
+				},
+				"description": "get all cities from database"
+			},
+			"response": []
+		}
+	]
+}
