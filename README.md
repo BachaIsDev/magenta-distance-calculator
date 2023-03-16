@@ -9,4 +9,4 @@ How to start the application?
 - after compilation application is ready to use
 - you can check Distance-calculator in browser or Postman (there is a postman_collection in 'src/main/resources')
 - app will run on port: localhost:8080
-- use test_data.xml to check '/upload'-endpoint (src/main/resources)
+- use test_data.xml to fill test data and check '/upload'-endpoint (src/main/resources)
